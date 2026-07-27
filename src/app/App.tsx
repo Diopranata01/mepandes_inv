@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import svgPaths from "@/imports/Html→Body-1/svg-9p0v258dil";
 import imgBackgroundOrnaments from "@/imports/Html→Body-1/8d96bc711f0882781b1d7150beb7c69977023eed.png";
 import imgBalineseLotusIcon from "@/imports/Html→Body-1/773d5b91a0fddb9de907364ea8389d22192e13fd.png";
@@ -308,6 +309,7 @@ export default function App() {
   }
 
   return (
+    <>
     <div
       className="min-h-screen flex justify-center bg-[#fdfbf7]"
     >
@@ -782,5 +784,7 @@ export default function App() {
         )}
       </div>
     </div>
+    <Analytics />
+    </>
   );
 }
