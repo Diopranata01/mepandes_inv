@@ -133,6 +133,56 @@ function FloralCornerSVG() {
   );
 }
 
+/**
+ * Fades children in from below when they enter the viewport.
+ * Pass `enabled={isOpen}` so observation only starts after the cover is dismissed.
+ */
+function FadeIn({
+  children,
+  delay = 0,
+  enabled = true,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  enabled?: boolean;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [enabled]);
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        transition: `opacity 700ms ease-out ${visible ? delay : 0}ms, transform 700ms ease-out ${visible ? delay : 0}ms`,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0px)" : "translateY(24px)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function App() {
   const { days, hours, minutes, seconds } = useCountdown();
   const [active, setActive] = useState<Section>("invitation");
@@ -337,58 +387,68 @@ export default function App() {
           <div ref={invRef} className="flex flex-col items-center px-[24px] pt-[29px] gap-[20px]">
 
             {/* Om decorative icon */}
-            <div className="flex items-center justify-center w-full">
-              <div className="opacity-40 size-[48px] relative shrink-0">
-                <img alt="" className="absolute h-full left-[-3.44%] max-w-none top-0 w-[106.89%]" src={imgDecorativeIcon} />
+            <FadeIn enabled={isOpen} delay={0}>
+              <div className="flex items-center justify-center w-full">
+                <div className="opacity-40 size-[48px] relative shrink-0">
+                  <img alt="" className="absolute h-full left-[-3.44%] max-w-none top-0 w-[106.89%]" src={imgDecorativeIcon} />
+                </div>
               </div>
-            </div>
+            </FadeIn>
 
             {/* "Om Swastiastu" heading */}
-            <div className="w-full text-center px-[32px]">
-              <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[24px] leading-[40px] tracking-[-0.9px] m-0">
-                "Om Swastiastu"
-              </p>
-            </div>
+            <FadeIn enabled={isOpen} delay={100}>
+              <div className="w-full text-center px-[32px]">
+                <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[24px] leading-[40px] tracking-[-0.9px] m-0">
+                  "Om Swastiastu"
+                </p>
+              </div>
+            </FadeIn>
 
             {/* Italic blessing quote */}
-            <div className="w-full text-center px-[32px]">
-              <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[16px] leading-[26px] m-0">
-                "Atas asung kertha wara nugraha
-              </p>
-              <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[16px] leading-[26px] m-0">
-                Ida Sang Hyang Widhi Wasa"
-              </p>
-            </div>
+            <FadeIn enabled={isOpen} delay={200}>
+              <div className="w-full text-center px-[32px]">
+                <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[16px] leading-[26px] m-0">
+                  "Atas asung kertha wara nugraha
+                </p>
+                <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[16px] leading-[26px] m-0">
+                  Ida Sang Hyang Widhi Wasa"
+                </p>
+              </div>
+            </FadeIn>
 
             {/* Invitation paragraph */}
-            <div className="w-full text-center">
-              <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[14px] leading-[22.75px] m-0">
-                Kami bermaksud mengundang Bapak/Ibu/Saudara/i pada Upacara Manusa Yadnya Mepandes (Potong Gigi) Putri - Putri kami.
-              </p>
-            </div>
+            <FadeIn enabled={isOpen} delay={300}>
+              <div className="w-full text-center">
+                <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[14px] leading-[22.75px] m-0">
+                  Kami bermaksud mengundang Bapak/Ibu/Saudara/i pada Upacara Manusa Yadnya Mepandes (Potong Gigi) Putri - Putri kami.
+                </p>
+              </div>
+            </FadeIn>
 
             {/* Names */}
-            <div className="flex flex-col gap-[8px] items-center w-full mt-[10px]">
-              <div className="w-full text-center">
-                <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[30px] leading-[36px] tracking-[-0.5px] m-0">
-                  Luh Putri Yuniari
-                </p>
+            <FadeIn enabled={isOpen} delay={400}>
+              <div className="flex flex-col gap-[8px] items-center w-full mt-[10px]">
+                <div className="w-full text-center">
+                  <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[30px] leading-[36px] tracking-[-0.5px] m-0">
+                    Luh Putri Yuniari
+                  </p>
+                </div>
+                <div className="w-full text-center">
+                  <p className="font-['EB_Garamond',serif] font-normal text-[#94765c] text-[20px] leading-[24px] m-0">
+                    &amp;
+                  </p>
+                </div>
+                <div className="w-full text-center">
+                  <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[30px] leading-[36px] tracking-[-0.5px] m-0">
+                    Tasya
+                  </p>
+                </div>
               </div>
-              <div className="w-full text-center">
-                <p className="font-['EB_Garamond',serif] font-normal text-[#94765c] text-[20px] leading-[24px] m-0">
-                  &amp;
-                </p>
-              </div>
-              <div className="w-full text-center">
-                <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[30px] leading-[36px] tracking-[-0.5px] m-0">
-                  Tasya
-                </p>
-              </div>
-            </div>
+            </FadeIn>
           </div>
 
           {/* ── VERSE SECTION (Bhagavad Gita) ── */}
-          <div className="flex flex-col items-start gap-[23px] px-[24px] pt-[40px] pb-[44px]">
+          <FadeIn enabled={isOpen} className="flex flex-col items-start gap-[23px] px-[24px] pt-[40px] pb-[44px]">
             <LotusDivider />
 
             <div className="w-full px-[16px] flex flex-col gap-[16px]">
@@ -420,7 +480,7 @@ export default function App() {
                 </p>
               </div>
             </div>
-          </div>
+          </FadeIn>
 
           {/* Background ornaments — middle band */}
           <div
@@ -432,6 +492,7 @@ export default function App() {
           <div ref={scheduleRef} className="bg-[#f5efe4] py-[40px] px-[24px] flex flex-col gap-[24px] border-y border-[rgba(148,118,92,0.1)] relative z-10">
 
             {/* Date Badge */}
+            <FadeIn enabled={isOpen}>
             <div className="flex items-center justify-center w-full">
               <div className="bg-[#faf6ee] rounded-[12px] w-full border border-[rgba(148,118,92,0.15)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.05)]">
                 <div className="flex flex-col items-center justify-center px-[33px] py-[13px]">
@@ -444,8 +505,10 @@ export default function App() {
                 </div>
               </div>
             </div>
+            </FadeIn>
 
             {/* Event 1 — Upacara Utama */}
+            <FadeIn enabled={isOpen} delay={100}>
             <div className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
               <div className="flex flex-col gap-[16px] p-[28px]">
                 <div className="flex items-start justify-between w-full">
@@ -486,6 +549,7 @@ export default function App() {
                 />
               </div>
             </div>
+            </FadeIn>
 
             {/* Between-events divider */}
             <div className="flex items-center justify-center py-[8px] w-full">
@@ -499,6 +563,7 @@ export default function App() {
             </div>
 
             {/* Event 2 — Resepsi & Jamuan */}
+            <FadeIn enabled={isOpen} delay={200}>
             <div ref={locationRef} className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
               <div className="flex flex-col gap-[15px] p-[28px]">
                 <div className="flex items-start justify-between w-full">
@@ -536,10 +601,11 @@ export default function App() {
                 />
               </div>
             </div>
+            </FadeIn>
           </div>
 
           {/* ── CLOSING MESSAGE ── */}
-          <div className="flex flex-col gap-[16px] items-center px-[24px] pt-[40px]">
+          <FadeIn enabled={isOpen} className="flex flex-col gap-[16px] items-center px-[24px] pt-[40px]">
             <div className="w-full text-center">
               <p className="font-['EB_Garamond',serif] text-[#1d1b18] text-[14px] leading-[22px] m-0">
                 Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk memberikan doa restu bagi putri kami.
@@ -550,7 +616,7 @@ export default function App() {
                 Atas doa restunya, kami ucapkan terima kasih.
               </p>
             </div>
-          </div>
+          </FadeIn>
 
           {/* Background ornaments — bottom band */}
           <div
@@ -562,7 +628,7 @@ export default function App() {
           <div className="flex flex-col items-center pt-[48px] pb-[32px]">
 
             {/* Weda quote block */}
-            <div className="flex flex-col gap-[30px] items-start w-full px-[36px] pb-[32px]">
+            <FadeIn enabled={isOpen} className="flex flex-col gap-[30px] items-start w-full px-[36px] pb-[32px]">
               <LotusDivider />
               <div className="flex flex-col gap-[7px] items-start w-full pt-[8px]">
                 <div className="w-full text-center">
@@ -593,10 +659,10 @@ export default function App() {
                   </p>
                 </div>
               </div>
-            </div>
+            </FadeIn>
 
             {/* Countdown Strip */}
-            <div className="w-full bg-[#f5efe4] py-[24px] my-[24px] flex flex-col items-center justify-center border-y border-[rgba(148,118,92,0.1)]">
+            <FadeIn enabled={isOpen} delay={100} className="w-full bg-[#f5efe4] py-[24px] my-[24px] flex flex-col items-center justify-center border-y border-[rgba(148,118,92,0.1)]">
               <div className="flex gap-[12px] items-center justify-center w-full max-w-[320px]">
                 {[
                   { value: days, label: "HARI" },
@@ -616,14 +682,16 @@ export default function App() {
                   </div>
                 ))}
               </div>
-            </div>
+            </FadeIn>
 
             {/* Om Shanti */}
+            <FadeIn enabled={isOpen} delay={200}>
             <div className="pt-[16px] px-[24px]">
               <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[24px] leading-[32px] text-center m-0">
                 Om Shanti Shanti Shanti Om
               </p>
             </div>
+            </FadeIn>
 
             {/* Bottom spacing placeholder */}
             <div className="h-[48px]" />
