@@ -144,6 +144,8 @@ export default function App() {
   const invRef = useRef<HTMLDivElement>(null);
   const scheduleRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const ytPlayerRef = useRef<any>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -176,6 +178,74 @@ export default function App() {
       setGuestName(to);
     }
   }, []);
+
+  // Load YouTube IFrame API — container lives in document.body, OUTSIDE React's DOM
+  // so React reconciliation never conflicts with what the YT API does to the element.
+  useEffect(() => {
+    const container = document.createElement("div");
+    container.style.cssText =
+      "position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:-9999px;left:-9999px;overflow:hidden;";
+    document.body.appendChild(container);
+
+    const initPlayer = () => {
+      ytPlayerRef.current = new (window as any).YT.Player(container, {
+        videoId: "jJpYnEZxRW0",
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          disablekb: 1,
+          end: 290,
+          loop: 0,
+          modestbranding: 1,
+          rel: 0,
+          start: 0,
+          origin: window.location.origin,
+        },
+        events: {
+          onStateChange: (event: any) => {
+            if (event.data === 0) {
+              ytPlayerRef.current?.seekTo(0, true);
+              ytPlayerRef.current?.playVideo();
+            }
+          },
+        },
+      });
+    };
+
+    const yt = (window as any).YT;
+    if (yt && yt.Player) {
+      initPlayer();
+    } else if (!document.getElementById("yt-api-script")) {
+      const tag = document.createElement("script");
+      tag.id = "yt-api-script";
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+      (window as any).onYouTubeIframeAPIReady = initPlayer;
+    } else {
+      (window as any).onYouTubeIframeAPIReady = initPlayer;
+    }
+
+    return () => {
+      try { ytPlayerRef.current?.destroy(); } catch (_) {}
+      ytPlayerRef.current = null;
+      container.remove();
+    };
+  }, []);
+
+  // Start music when user opens the invitation (user gesture = autoplay allowed)
+  useEffect(() => {
+    if (!isOpen) return;
+    let retries = 0;
+    const tryPlay = () => {
+      if (ytPlayerRef.current && typeof ytPlayerRef.current.playVideo === "function") {
+        ytPlayerRef.current.playVideo();
+      } else if (retries < 20) {
+        retries++;
+        setTimeout(tryPlay, 300);
+      }
+    };
+    tryPlay();
+  }, [isOpen]);
 
   function scrollTo(section: Section) {
     setActive(section);
@@ -611,6 +681,37 @@ export default function App() {
               </span>
             </button>
           </div>
+        )}
+
+        {/* Floating Music Toggle */}
+        {isUnlocked && (
+          <button
+            onClick={() => {
+              if (!ytPlayerRef.current) return;
+              if (isMuted) {
+                ytPlayerRef.current.unMute();
+              } else {
+                ytPlayerRef.current.mute();
+              }
+              setIsMuted(prev => !prev);
+            }}
+            aria-label={isMuted ? "Unmute music" : "Mute music"}
+            className="fixed top-4 right-4 z-[200] w-[42px] h-[42px] rounded-full bg-[#614d3f]/80 backdrop-blur-sm flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.2)] cursor-pointer border-none text-white transition-all duration-200 hover:bg-[#614d3f] hover:scale-110 active:scale-95"
+          >
+            {isMuted ? (
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                <line x1="17" y1="9" x2="23" y2="15" strokeLinecap="round" />
+                <line x1="23" y1="9" x2="17" y2="15" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
+            )}
+          </button>
         )}
       </div>
     </div>
