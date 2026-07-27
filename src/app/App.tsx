@@ -276,7 +276,7 @@ export default function App() {
     }
 
     return () => {
-      try { ytPlayerRef.current?.destroy(); } catch (_) {}
+      try { ytPlayerRef.current?.destroy(); } catch (_) { }
       ytPlayerRef.current = null;
       container.remove();
     };
@@ -316,10 +316,10 @@ export default function App() {
         {/* ── COVER PAGE ── */}
         <div
           className={`absolute inset-0 z-50 flex flex-col justify-between p-[36px] bg-[#f5efe4] transition-all duration-[1200ms] ease-in-out ${isOpen
-              ? "transform -translate-y-8 opacity-0 pointer-events-none"
-              : isMounted
-                ? "transform translate-y-0 opacity-100"
-                : "transform translate-y-4 opacity-0"
+            ? "transform -translate-y-8 opacity-0 pointer-events-none"
+            : isMounted
+              ? "transform translate-y-0 opacity-100"
+              : "transform translate-y-4 opacity-0"
             }`}
         >
           {/* Double Golden Border */}
@@ -373,9 +373,8 @@ export default function App() {
 
         {/* ── MAIN CONTENT WRAPPER ── */}
         <div
-          className={`w-full relative transition-all duration-[1000ms] ease-out ${
-            isOpen ? "opacity-100 translate-y-0 delay-[300ms]" : "opacity-0 translate-y-4 pointer-events-none"
-          }`}
+          className={`w-full relative transition-all duration-[1000ms] ease-out ${isOpen ? "opacity-100 translate-y-0 delay-[300ms]" : "opacity-0 translate-y-4 pointer-events-none"
+            }`}
         >
           {/* Background ornaments — top band */}
           <div
@@ -440,7 +439,7 @@ export default function App() {
                 </div>
                 <div className="w-full text-center">
                   <p className="font-['EB_Garamond',serif] font-normal text-[#72573f] text-[30px] leading-[36px] tracking-[-0.5px] m-0">
-                    Tasya
+                    Ni Kadek Tasya Purnamadewi
                   </p>
                 </div>
               </div>
@@ -493,62 +492,62 @@ export default function App() {
 
             {/* Date Badge */}
             <FadeIn enabled={isOpen}>
-            <div className="flex items-center justify-center w-full">
-              <div className="bg-[#faf6ee] rounded-[12px] w-full border border-[rgba(148,118,92,0.15)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.05)]">
-                <div className="flex flex-col items-center justify-center px-[33px] py-[13px]">
-                  <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[14px] leading-[20px] tracking-[1.6px] m-0">
-                    Hari / Tanggal
-                  </p>
-                  <p className="font-['EB_Garamond',serif] text-[#1d1b18] text-[20px] leading-[28px] m-0 mt-[2px]">
-                    Rabu, 05 Agustus 2026
-                  </p>
+              <div className="flex items-center justify-center w-full">
+                <div className="bg-[#faf6ee] rounded-[12px] w-full border border-[rgba(148,118,92,0.15)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.05)]">
+                  <div className="flex flex-col items-center justify-center px-[33px] py-[13px]">
+                    <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[14px] leading-[20px] tracking-[1.6px] m-0">
+                      Hari / Tanggal
+                    </p>
+                    <p className="font-['EB_Garamond',serif] text-[#1d1b18] text-[20px] leading-[28px] m-0 mt-[2px]">
+                      Rabu, 05 Agustus 2026
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
             </FadeIn>
 
             {/* Event 1 — Upacara Utama */}
             <FadeIn enabled={isOpen} delay={100}>
-            <div className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
-              <div className="flex flex-col gap-[16px] p-[28px]">
-                <div className="flex items-start justify-between w-full">
-                  <div>
-                    <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[15px] leading-[20px] tracking-[1.6px] m-0">Hari / Tanggal</p>
-                    <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[18px] leading-[24px] m-0 mt-[2px]">Upacara Utama</p>
+              <div className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
+                <div className="flex flex-col gap-[16px] p-[28px]">
+                  <div className="flex items-start justify-between w-full">
+                    <div>
+                      <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[15px] leading-[20px] tracking-[1.6px] m-0">Hari / Tanggal</p>
+                      <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[18px] leading-[24px] m-0 mt-[2px]">Upacara Utama</p>
+                    </div>
+                    <div className="rounded-full bg-[#94765c] w-[32px] h-[32px] flex items-center justify-center shrink-0">
+                      <svg className="size-[16px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                      </svg>
+                    </div>
                   </div>
-                  <div className="rounded-full bg-[#94765c] w-[32px] h-[32px] flex items-center justify-center shrink-0">
-                    <svg className="size-[16px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <div className="flex gap-[8px] items-center w-full">
+                    <svg className="size-[16px] text-[#94765c] shrink-0 mt-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
                     </svg>
+                    <p className="font-['EB_Garamond',serif] italic text-[#4f453d] text-[16px] leading-[24px] m-0">09.00 - 12.00 Wita</p>
                   </div>
-                </div>
-                <div className="flex gap-[8px] items-center w-full">
-                  <svg className="size-[16px] text-[#94765c] shrink-0 mt-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
-                  </svg>
-                  <p className="font-['EB_Garamond',serif] italic text-[#4f453d] text-[16px] leading-[24px] m-0">09.00 - 12.00 Wita</p>
-                </div>
-                <div className="flex gap-[8px] items-start pb-[8px] w-full">
-                  <svg className="size-[18px] text-[#94765c] shrink-0 mt-[3px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <circle cx="12" cy="11" r="3" />
-                  </svg>
-                  <p className="font-['EB_Garamond',serif] italic text-[#1d1b18] text-[16px] leading-[24px] m-0">
-                    Pura Dalem Kahyangan Tuban, Kuta,<br />Bali
-                  </p>
-                </div>
-                <GoogleMapsButton
-                  href="https://maps.app.goo.gl/SVKnf36tjHvg2w5Q9"
-                  icon={
-                    <svg className="size-[18px] shrink-0 text-[#715b00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  <div className="flex gap-[8px] items-start pb-[8px] w-full">
+                    <svg className="size-[18px] text-[#94765c] shrink-0 mt-[3px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <circle cx="12" cy="11" r="3" />
                     </svg>
-                  }
-                />
+                    <p className="font-['EB_Garamond',serif] italic text-[#1d1b18] text-[16px] leading-[24px] m-0">
+                      Pura Dalem Kahyangan Tuban, Kuta,<br />Bali
+                    </p>
+                  </div>
+                  <GoogleMapsButton
+                    href="https://maps.app.goo.gl/SVKnf36tjHvg2w5Q9"
+                    icon={
+                      <svg className="size-[18px] shrink-0 text-[#715b00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                      </svg>
+                    }
+                  />
+                </div>
               </div>
-            </div>
             </FadeIn>
 
             {/* Between-events divider */}
@@ -564,43 +563,43 @@ export default function App() {
 
             {/* Event 2 — Resepsi & Jamuan */}
             <FadeIn enabled={isOpen} delay={200}>
-            <div ref={locationRef} className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
-              <div className="flex flex-col gap-[15px] p-[28px]">
-                <div className="flex items-start justify-between w-full">
-                  <div>
-                    <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[15px] leading-[20px] tracking-[1.6px] m-0">Hari / Tanggal</p>
-                    <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[18px] leading-[24px] m-0 mt-[2px]">{`Resepsi & Jamuan`}</p>
-                  </div>
-                  <svg fill="none" height="22" viewBox="0 0 15 20" width="16.5" className="shrink-0">
-                    <path d={svgPaths.p23cfd7c0} fill="#94765C" />
-                  </svg>
-                </div>
-                <div className="flex gap-[8px] items-center w-full">
-                  <svg className="size-[16px] text-[#94765c] shrink-0 mt-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
-                  </svg>
-                  <p className="font-['EB_Garamond',serif] italic text-[#4f453d] text-[16px] leading-[24px] m-0">13.00 - Selesai</p>
-                </div>
-                <div className="flex gap-[8px] items-start pb-[8px] w-full">
-                  <svg className="size-[18px] text-[#94765c] shrink-0 mt-[3px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                  <p className="font-['EB_Garamond',serif] italic text-[#1d1b18] text-[16px] leading-[24px] m-0">
-                    Jl. Griya Mandala No. 8, Tuban, Kuta,<br />Bali
-                  </p>
-                </div>
-                <GoogleMapsButton
-                  href="https://maps.app.goo.gl/SecRVusDABAbifcx6"
-                  icon={
-                    <svg className="size-[18px] shrink-0 text-[#715b00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 15l6-6M15 9H11M15 9V13" />
+              <div ref={locationRef} className="bg-[#faf6ee] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.05)] rounded-[16px] w-full border border-[rgba(148,118,92,0.15)]">
+                <div className="flex flex-col gap-[15px] p-[28px]">
+                  <div className="flex items-start justify-between w-full">
+                    <div>
+                      <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[15px] leading-[20px] tracking-[1.6px] m-0">Hari / Tanggal</p>
+                      <p className="font-['EB_Garamond',serif] font-normal text-[#1d1b18] text-[18px] leading-[24px] m-0 mt-[2px]">{`Resepsi & Jamuan`}</p>
+                    </div>
+                    <svg fill="none" height="22" viewBox="0 0 15 20" width="16.5" className="shrink-0">
+                      <path d={svgPaths.p23cfd7c0} fill="#94765C" />
                     </svg>
-                  }
-                />
+                  </div>
+                  <div className="flex gap-[8px] items-center w-full">
+                    <svg className="size-[16px] text-[#94765c] shrink-0 mt-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                    </svg>
+                    <p className="font-['EB_Garamond',serif] italic text-[#4f453d] text-[16px] leading-[24px] m-0">13.00 - Selesai</p>
+                  </div>
+                  <div className="flex gap-[8px] items-start pb-[8px] w-full">
+                    <svg className="size-[18px] text-[#94765c] shrink-0 mt-[3px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <p className="font-['EB_Garamond',serif] italic text-[#1d1b18] text-[16px] leading-[24px] m-0">
+                      Jl. Griya Mandala No. 8, Tuban, Kuta,<br />Bali
+                    </p>
+                  </div>
+                  <GoogleMapsButton
+                    href="https://maps.app.goo.gl/SecRVusDABAbifcx6"
+                    icon={
+                      <svg className="size-[18px] shrink-0 text-[#715b00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" transform="rotate(45 12 12)" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15l6-6M15 9H11M15 9V13" />
+                      </svg>
+                    }
+                  />
+                </div>
               </div>
-            </div>
             </FadeIn>
           </div>
 
@@ -686,11 +685,11 @@ export default function App() {
 
             {/* Om Shanti */}
             <FadeIn enabled={isOpen} delay={200}>
-            <div className="pt-[16px] px-[24px]">
-              <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[24px] leading-[32px] text-center m-0">
-                Om Shanti Shanti Shanti Om
-              </p>
-            </div>
+              <div className="pt-[16px] px-[24px]">
+                <p className="font-['EB_Garamond',serif] italic text-[#94765c] text-[24px] leading-[32px] text-center m-0">
+                  Om Shanti Shanti Shanti Om
+                </p>
+              </div>
             </FadeIn>
 
             {/* Bottom spacing placeholder */}
